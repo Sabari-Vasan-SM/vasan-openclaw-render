@@ -4,30 +4,30 @@ services:
     runtime: docker
     plan: free
 
-    healthCheckPath: /health
+    healthCheckPath: /
 
     envVars:
       - key: PORT
         value: "10000"
 
-      # Lower RAM usage for Render free tier
       - key: NODE_OPTIONS
         value: "--max-old-space-size=384"
 
-      # Auto generate token
+      # Use writable temp storage
+      - key: OPENCLAW_STATE_DIR
+        value: /tmp/.openclaw
+
+      - key: OPENCLAW_WORKSPACE_DIR
+        value: /tmp/workspace
+
+      # Gateway token
       - key: OPENCLAW_GATEWAY_TOKEN
         generateValue: true
 
+      # IMPORTANT FIX
+      - key: OPENCLAW_ARGS
+        value: "--allow-unconfigured"
+
       # Gemini API
       - key: GEMINI_API_KEY
-        sync: false
-
-      # Optional AI providers
-      - key: OPENAI_API_KEY
-        sync: false
-
-      - key: ANTHROPIC_API_KEY
-        sync: false
-
-      - key: OPENROUTER_API_KEY
         sync: false
