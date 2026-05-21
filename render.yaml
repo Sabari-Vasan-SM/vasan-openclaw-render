@@ -3,25 +3,26 @@ services:
     name: openclaw
     runtime: docker
     plan: free
+
     healthCheckPath: /health
 
     envVars:
       - key: PORT
         value: "10000"
 
-      # Reduced memory usage for Render free tier
+      # Lower RAM usage for Render free tier
       - key: NODE_OPTIONS
         value: "--max-old-space-size=384"
 
-      # Auto-generated gateway token
+      # Auto generate token
       - key: OPENCLAW_GATEWAY_TOKEN
         generateValue: true
 
-      # AI Provider API Key
+      # Gemini API
       - key: GEMINI_API_KEY
         sync: false
 
-      # Optional providers
+      # Optional AI providers
       - key: OPENAI_API_KEY
         sync: false
 
@@ -29,10 +30,4 @@ services:
         sync: false
 
       - key: OPENROUTER_API_KEY
-        sync: false
-
-      - key: MOONSHOT_API_KEY
-        sync: false
-
-      - key: MINIMAX_API_KEY
         sync: false
